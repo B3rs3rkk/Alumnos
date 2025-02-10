@@ -22,7 +22,7 @@ const alumnosSchema = Schema({
         requiered: [true, "El correo es requerido"],
         unique: true
     },
-    contraseña:{
+    contra:{
         type: String,
         requiered: [true, "Contraseña requerida"]
     },

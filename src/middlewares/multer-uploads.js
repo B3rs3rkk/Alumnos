@@ -1,28 +1,28 @@
 import multer from "multer";
-import { dirname, extname, join } from "path";
-import { fileURLToPath } from "url"
+import {dirname, extname, join} from "path";
+import { fileURLToPath } from "url";
 
 const CURRENT_DIR = dirname(fileURLToPath(import.meta.url))
 const MIMETYPES = ["image/png", "image/jpg", "image/jpeg"]
 const MAX_SIZE = 100000000
 
-const createMulterConfig = (destinationFolder) => {
+const createMulterConfigProfesores = (destinationFolder) =>{
     return multer({
         storage: multer.diskStorage({
-            destination: (req, file, cb) => {
+            destination: (req, file, cb) =>{
                 const fullPath = join(CURRENT_DIR, destinationFolder)
                 req.filePath = fullPath
                 cb(null, fullPath)
             },
-            filename: (req, file, cb) => {
+            filename: (req, file, cb) =>{
                 const fileExtension = extname(file.originalname)
                 const fileName = file.originalname.split(fileExtension)[0]
                 cb(null, `${fileName}-${Date.now()}${fileExtension}`)
-            }   
+            }
         }),
-        fileFilter:(req, file, cb) => {
-            if(MIMETYPES.includes(file.mimetype)) cb(null,true)
-            else cb(new Error(`Solamente se aceptan archivos de los siguients tipos: ${MIMETYPES.join(" ")}`))
+        fileFilter:(req, file, cb) =>{
+            if(MIMETYPES.includes(file.mimetype)) cb(null, true)
+            else cb(new Error(`Solamente se aceptan archivos d elos siquientes tipos ${MIMETYPES.join(" ")}`))
         },
         limits:{
             fileSize: MAX_SIZE
@@ -30,4 +30,30 @@ const createMulterConfig = (destinationFolder) => {
     })
 }
 
-export const uploadProfilePicture = createMulterConfig("../../public/uploads/profile-pictures")
+export const uploadProfilePictureProfesores = createMulterConfigProfesores("../../public/uploads/profile-pictures-profesores")
+
+const createMulterConfigAlumnos = (destinationFolder) =>{
+    return multer({
+        storage: multer.diskStorage({
+            destination: (req, file, cb) =>{
+                const fullPath = join(CURRENT_DIR, destinationFolder)
+                req.filePath = fullPath
+                cb(null, fullPath)
+            },
+            filename: (req, file, cb) =>{
+                const fileExtension = extname(file.originalname)
+                const fileName = file.originalname.split(fileExtension)[0]
+                cb(null, `${fileName}-${Date.now()}${fileExtension}`)
+            }
+        }),
+        fileFilter:(req, file, cb) =>{
+            if(MIMETYPES.includes(file.mimetype)) cb(null, true)
+            else cb(new Error(`Solamente se aceptan archivos d elos siquientes tipos ${MIMETYPES.join(" ")}`))
+        },
+        limits:{
+            fileSize: MAX_SIZE
+        }
+    })
+}
+
+export const uploadProfilePictureAlumnos = createMulterConfigAlumnos("../../public/uploads/profile-pictures-alumnos")
