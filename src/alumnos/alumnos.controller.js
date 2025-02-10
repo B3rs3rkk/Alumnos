@@ -1,20 +1,14 @@
 import Alumnos from "./alumnos.model.js";
 import Cursos from "../cursos/cursos.model.js";
 
-/**
- * Asigna un curso a un alumno.
- * 
- * @param {Object} req - Objeto de solicitud HTTP.
- * @param {Object} res - Objeto de respuesta HTTP.
- * @returns {Promise<void>} - Respuesta HTTP con el resultado de la operación.
- */
+
 export const asignarCursoAlumno = async (req, res) => {
     try {
-        const { aid } = req.body; 
-        const { cid } = req.params;
+        const { alumnoId } = req.body; 
+        const { cursoId } = req.params;
 
         // Busca al alumno en base a su id
-        const alumno = await Alumnos.findById(aid);
+        const alumno = await Alumnos.findById(alumnoId);
         console.log(alumno)
         if (!alumno) {
             return res.status(404).json({ 
@@ -31,7 +25,7 @@ export const asignarCursoAlumno = async (req, res) => {
         }
 
         // Verifica si el alumno ya está inscrito en el curso
-        if (alumno.cursos.includes(cid)) {
+        if (alumno.cursos.includes(cursoId)) {
             return res.status(400).json({ 
                 success: false, 
                 msg: "Ya estás inscrito en este curso" 
@@ -39,7 +33,7 @@ export const asignarCursoAlumno = async (req, res) => {
         }
 
         // Busca el curso por id
-        const curso = await Cursos.findById(cid);
+        const curso = await Cursos.findById(cursoId);
         if (!curso) {
             return res.status(404).json({ 
                 success: false, 
@@ -48,7 +42,7 @@ export const asignarCursoAlumno = async (req, res) => {
         }
 
         // Agrega el curso al alumno
-        alumno.cursos.push(cid);
+        alumno.cursos.push(cursoId);
         await alumno.save();
         // Respuesta exitosa
         res.status(200).json({

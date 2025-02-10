@@ -1,12 +1,6 @@
 import Profesores from "./profesores.model.js";
 
-/**
- * Obtiene un profesor por su ID.
- * 
- * @param {Object} req - Objeto de solicitud HTTP.
- * @param {Object} res - Objeto de respuesta HTTP.
- * @returns {Promise<void>} - Respuesta HTTP con el resultado de la operación.
- */
+
 export const getProfesorById = async (req, res) => {
     try {
         // Extrae el ID del profesor de los parámetros de la solicitud

@@ -1,13 +1,7 @@
 import Cursos from "../cursos/cursos.model.js";
 import Profesor from "../profesores/profesores.model.js";
 
-/**
- * Crea un nuevo curso y lo asocia a un profesor.
- * 
- * @param {Object} req - Objeto de solicitud HTTP.
- * @param {Object} res - Objeto de respuesta HTTP.
- * @returns {Promise<void>} - Respuesta HTTP con el resultado de la operación.
- */
+
 export const crearCurso = async (req, res) => {
     try {
         const { pid } = req.params;
@@ -31,13 +25,7 @@ export const crearCurso = async (req, res) => {
     }
 };
 
-/**
- * Obtiene los cursos impartidos por un profesor.
- * 
- * @param {Object} req - Objeto de solicitud HTTP.
- * @param {Object} res - Objeto de respuesta HTTP.
- * @returns {Promise<void>} - Respuesta HTTP con el resultado de la operación.
- */
+
 export const getCursosImpartidos = async (req, res) => {
     try {
         const { pid } = req.params;
@@ -72,13 +60,7 @@ export const getCursosImpartidos = async (req, res) => {
     }
 };
 
-/**
- * Edita el nombre de un curso impartido por un profesor.
- * 
- * @param {Object} req - Objeto de solicitud HTTP.
- * @param {Object} res - Objeto de respuesta HTTP.
- * @returns {Promise<void>} - Respuesta HTTP con el resultado de la operación.
- */
+
 export const editarCursos = async (req, res) => {
     try {
         const { pid, cid, nuevoNombre } = req.body;
